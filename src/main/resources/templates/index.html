@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+<h1>Welcome to Index PAGE!</h1>
+
+<div th:object="${user}">
+    <p>
+        <code>Hello</code>
+        <code th:text="${user.getUsername()}"></code>
+        <code th:text="${user.getLastName()}"></code>
+        <code>!</code>
+    </p>
+    <p>
+        <code>Your email is:</code>
+        <code th:text="${user.getEmail()}"></code>
+    </p>
+    <code>Your roles are</code>
+    <table>
+        <tr th:each="role : ${user.getRoles()}">
+            <th th:text="${role}"></th>
+        </tr>
+    </table>
+</div>
+
+<br>
+
+
+<div th:insert="~{exit :: exit_button}"></div>
+<div sec:authorize="hasRole('ADMIN')">
+    <form action="/admin/list" method="GET">
+        <button type="submit">User List</button>
+    </form>
+</div>
+
+</body>
+</html>

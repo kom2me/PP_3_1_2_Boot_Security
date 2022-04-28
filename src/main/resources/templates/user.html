@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+<h1>User, welcome spring boot security page!</h1>
+<div>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Last name</th>
+            <th>Email</th>
+        </tr>
+        <tr th:each="msg : ${userList}">
+            <th th:text="${msg.getName()}"></th>
+            <th th:text="${msg.getLastName()}"></th>
+            <th th:text="${msg.getEmail()}"></th>
+            <td>
+                <a th:href="@{/admin/{id}/edit(id=${msg.getId()})}">Edit</a>
+            </td>
+            <td>
+                <a th:href="@{/admin/{id}/remove(id=${msg.getId()})}">Delete</a>
+            </td>
+
+        </tr>
+    </table>
+
+    <form method="POST" action="/admin/">
+        <p>
+            <label for="name">Name: </label>
+            <input name="name" type="text" size="40">
+        </p>
+        <p>
+            <label for="lastName">Last name: </label>
+            <input name="lastName" type="text" size="40">
+        </p>
+        <p>
+            <label for="email">Email: </label>
+            <input name="email" type="text" size="40">
+        </p>
+        <p><input type="submit" value="Send">
+            <input type="reset" value="Clear"></p>
+    </form>
+
+</div>
+<div th:insert="~{exit :: exit_button}"></div>
+</body>
+</html>
